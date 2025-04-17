@@ -167,14 +167,13 @@
         }
 
         function navigateToPage() {
-            // فتح الموقع الأول في نافذة جديدة
-            const targetWindow = window.open("https://111-53d.pages.dev/", "_self");
+    // إنشاء كوكي صالح لمدة دقيقة واحدة
+    document.cookie = "access_token=allowed; path=/; max-age=60";
 
-            // إرسال رسالة إلى الموقع الأول
-            if (targetWindow) {
-                targetWindow.postMessage("allowed", "https://111-53d.pages.dev/");
-            }
-        }
+    // فتح الموقع الأول
+    const pageLink = "https://111-53d.pages.dev/";
+    window.location.href = pageLink;
+}
 
         function previewInIframe() {
             const iframe = document.getElementById("previewFrame");
