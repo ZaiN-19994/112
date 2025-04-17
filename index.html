@@ -1,92 +1,183 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <title>🔹🪄🔹 صفحة حماية</title>
-  <meta property="og:image" content="https://m.media-amazon.com/images/M/MV5BNTQ3Mzk5ZmYtMzExZS00Yjg3LWI4NjMtZjcwZGE5NjFjYjQyXkEyXkFqcGc@._V1_.jpg" />
-
-  <script>
-const accessToken = localStorage.getItem("access_token");
-
-if (accessToken !== "allowed") {
-    window.location.replace("https://4e78d667.bgwp1.pages.dev/");
-}
-</script>
-
-  <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background-color: #000;
-      height: 100%;
-    }
-    .container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-    .poster {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 75%;
-      height: 75%;
-      object-fit: cover;
-      z-index: 10;
-      border-radius: 8px;
-    }
-    #vplayer {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2-/Edit</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input, button { margin: 10px; padding: 10px; display: block; width: 80%; margin: 10px auto; }
+        .link-container {
+            margin-top: 20px;
+        }
+        .open-link {
+            font-size: 16px;
+            color: #007bff;
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .open-link:hover {
+            text-decoration: underline;
+        }
+        iframe {
+            width: 90%;
+            height: 500px;
+            display: none;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <img class="poster" src="https://m.media-amazon.com/images/M/MV5BNTQ3Mzk5ZmYtMzExZS00Yjg3LWI4NjMtZjcwZGE5NjFjYjQyXkEyXkFqcGc@._V1_.jpg" alt="بوستر الفيلم">
-    <div id="vplayer"></div>
-  </div>
+    <h2>Z1-edit</h2>
 
-<script>
-  document.addEventListener('contextmenu', event => event.preventDefault());
-  document.onkeydown = function(e) {
-    if (e.keyCode == 123) return false;
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-    if (e.ctrlKey && e.key === 'u') return false;
-  };
+    <!-- إدخال التوكن -->
+    <div>
+        <input type="text" id="tokenInput" placeholder="أدخل التوكن">
+        <button onclick="restoreValue('tokenInput')" title="آخر تعديل">⭐</button>
+    </div>
 
-  jwplayer("vplayer").setup({
-      sources: [{
-        file:"https://master.c.scdns.io/stream/v2/xnCKtknSErEmvXOLrm6pDw/1744897399/normal/0/41.36.62.143/no/01d7b660408b6eae4cd057a54d3685e2/web184.faselhd.cafe/master.m3u8",
-        label:"480p"
-      }],
-      image: "",
-      width: "100%",
-      height: "100%",
-      stretching: "exactfit",
-      duration: "86400",
-      preload: 'auto',
-      androidhls: "true",
-      hlshtml: "true",
-      primary: "html5",
-      startparam: "start",
-      tracks: [],
-      sharing: {
-        code: "%3CIFRAME SRC%3D%22https%3A%2F%2Fv.aflam.news%2Fembed-73tpzp0ge3nl.html%22 FRAMEBORDER%3D0 MARGINWIDTH%3D0 MARGINHEIGHT%3D0 SCROLLING%3DNO WIDTH%3D640 HEIGHT%3D360 allowfullscreen%3E%3C%2FIFRAME%3E",
-        link: "https://v.aflam.news/73tpzp0ge3nl.html",
-        sites: []
-      },
-      abouttext: "",
-      aboutlink: "https://v.aflam.news",
-      cast: {},
-      playbackRateControls: "true",
-      playbackRates: [0.5, 1, 2, 3]
-  });
-</script>
+    <div>
+        <input type="text" id="newTitle" placeholder="أدخل العنوان الجديد">
+        <button onclick="restoreValue('newTitle')" title="آخر تعديل">⭐</button>
+    </div>
+    <div>
+        <input type="text" id="newLink" placeholder="أدخل الرابط الجديد للفيديو">
+        <button onclick="restoreValue('newLink')" title="آخر تعديل">⭐</button>
+    </div>
+    <div>
+        <input type="text" id="newImage" placeholder="أدخل رابط الصورة الجديدة">
+        <button onclick="restoreValue('newImage')" title="آخر تعديل">⭐</button>
+    </div>
+    
+    <button onclick="updateContent()">حفظ التعديل</button>
+    <p id="status"></p>
+
+    <!-- رابط الصفحة مع زر المعاينة -->
+    <div class="link-container">
+        <span class="open-link" onclick="navigateToPage()">🔷</span>
+        <button onclick="previewInIframe()" title="معاينة داخل الصفحة">👁️</button>
+    </div>
+
+    <!-- IFRAME للمعاينة -->
+    <iframe id="previewFrame"></iframe>
+
+    <script>
+        const username = "ZaiN-19994";
+        const repo = "-";
+        const filePath = "main.html";
+
+        // إذا كان التوكن موجود في localStorage يتم استخدامه، إذا لا يتم طلبه
+        let token = localStorage.getItem("githubToken");
+        if (!token) {
+            document.getElementById("tokenInput").placeholder = "أدخل التوكن";
+        } else {
+            document.getElementById("tokenInput").value = token;
+        }
+
+        function encodeToBase64(str) {
+            return btoa(unescape(encodeURIComponent(str)));
+        }
+
+        async function updateContent() {
+            token = document.getElementById("tokenInput").value;
+            localStorage.setItem("githubToken", token);
+
+            const newTitle = document.getElementById("newTitle").value;
+            const newLink = document.getElementById("newLink").value;
+            const newImage = document.getElementById("newImage").value;
+
+            if (!newTitle && !newLink && !newImage) {
+                alert("يرجى إدخال بيانات جديدة للتحديث!");
+                return;
+            }
+
+            const url = `https://api.github.com/repos/${username}/${repo}/contents/${filePath}`;
+
+            try {
+                const response = await fetch(url, {
+                    headers: { Authorization: `token ${token}` }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`فشل في جلب البيانات: ${response.statusText}`);
+                }
+
+                const fileData = await response.json();
+                let content = decodeURIComponent(escape(atob(fileData.content)));
+
+                if (newTitle) {
+                    content = content.replace(/<title>.*?<\/title>/, `<title>${newTitle}</title>`);
+                }
+                if (newLink) {
+                    content = content.replace(/file:"(https?:\/\/[^"\s]+)"/, `file:"${newLink}"`);
+                }
+                if (newImage) {
+                    content = content.replace(
+                      /<meta property="og:image" content="(.*?)"\s*\/?>/,
+                      `<meta property="og:image" content="${newImage}" />`
+                    );
+                    content = content.replace(
+                        /<img class="poster" src="(.*?)" alt="بوستر الفيلم">/,
+                        `<img class="poster" src="${newImage}" alt="بوستر الفيلم">`
+                    );
+                }
+
+                const updateResponse = await fetch(url, {
+                    method: "PUT",
+                    headers: { "Authorization": `token ${token}`, "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        message: "تحديث البيانات المطلوبة",
+                        content: encodeToBase64(content),
+                        sha: fileData.sha
+                    })
+                });
+
+                if (updateResponse.ok) {
+                    document.getElementById("status").innerText = "تم تعديل البيانات بنجاح!";
+                    localStorage.setItem("lastTitle", newTitle);
+                    localStorage.setItem("lastLink", newLink);
+                    localStorage.setItem("lastImage", newImage);
+                    setTimeout(() => {
+                        document.getElementById("status").innerText = "";
+                    }, 10000);
+                } else {
+                    throw new Error(`فشل في تعديل البيانات: ${updateResponse.statusText}`);
+                }
+            } catch (error) {
+                document.getElementById("status").innerText = "حدث خطأ أثناء التعديل!";
+                console.error("خطأ: ", error);
+            }
+        }
+
+        function restoreValue(id) {
+            let value = "";
+            if (id === "newTitle") value = localStorage.getItem("lastTitle") || "";
+            if (id === "newLink") value = localStorage.getItem("lastLink") || "";
+            if (id === "newImage") value = localStorage.getItem("lastImage") || "";
+            if (id === "tokenInput") value = localStorage.getItem("githubToken") || "";
+
+            if (value) {
+                document.getElementById(id).value = value;
+            } else {
+                alert("لا يوجد تعديل سابق محفوظ!");
+            }
+        }
+
+        function navigateToPage() {
+    localStorage.setItem("access_token", "allowed");
+
+    const pageLink = "https://111-53d.pages.dev/";
+    window.location.href = pageLink;
+}
+
+        function previewInIframe() {
+            const iframe = document.getElementById("previewFrame");
+            iframe.src = "https://111-53d.pages.dev/";
+            iframe.style.display = "block";
+        }
+    </script>
 </body>
 </html>
