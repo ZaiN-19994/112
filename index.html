@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>🔹🪄🔹 صفحة حماية</title>
+  <meta property="og:image" content="https://m.media-amazon.com/images/M/MV5BNTQ3Mzk5ZmYtMzExZS00Yjg3LWI4NjMtZjcwZGE5NjFjYjQyXkEyXkFqcGc@._V1_.jpg" />
+
+  <script>
+const accessToken = localStorage.getItem("access_token");
+
+if (accessToken !== "allowed") {
+    window.location.replace("https://4e78d667.bgwp1.pages.dev/");
+}
+</script>
+
+  <script src="https://cdn.jwplayer.com/libraries/IDzF9Zmk.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      height: 100%;
+    }
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .poster {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 75%;
+      height: 75%;
+      object-fit: cover;
+      z-index: 10;
+      border-radius: 8px;
+    }
+    #vplayer {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="poster" src="https://m.media-amazon.com/images/M/MV5BNTQ3Mzk5ZmYtMzExZS00Yjg3LWI4NjMtZjcwZGE5NjFjYjQyXkEyXkFqcGc@._V1_.jpg" alt="بوستر الفيلم">
+    <div id="vplayer"></div>
+  </div>
+
+<script>
+  document.addEventListener('contextmenu', event => event.preventDefault());
+  document.onkeydown = function(e) {
+    if (e.keyCode == 123) return false;
+    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+    if (e.ctrlKey && e.key === 'u') return false;
+  };
+
+  jwplayer("vplayer").setup({
+      sources: [{
+        file:"https://master.c.scdns.io/stream/v2/xnCKtknSErEmvXOLrm6pDw/1744897399/normal/0/41.36.62.143/no/01d7b660408b6eae4cd057a54d3685e2/web184.faselhd.cafe/master.m3u8",
+        label:"480p"
+      }],
+      image: "",
+      width: "100%",
+      height: "100%",
+      stretching: "exactfit",
+      duration: "86400",
+      preload: 'auto',
+      androidhls: "true",
+      hlshtml: "true",
+      primary: "html5",
+      startparam: "start",
+      tracks: [],
+      sharing: {
+        code: "%3CIFRAME SRC%3D%22https%3A%2F%2Fv.aflam.news%2Fembed-73tpzp0ge3nl.html%22 FRAMEBORDER%3D0 MARGINWIDTH%3D0 MARGINHEIGHT%3D0 SCROLLING%3DNO WIDTH%3D640 HEIGHT%3D360 allowfullscreen%3E%3C%2FIFRAME%3E",
+        link: "https://v.aflam.news/73tpzp0ge3nl.html",
+        sites: []
+      },
+      abouttext: "",
+      aboutlink: "https://v.aflam.news",
+      cast: {},
+      playbackRateControls: "true",
+      playbackRates: [0.5, 1, 2, 3]
+  });
+</script>
+</body>
+</html>
