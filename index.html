@@ -167,10 +167,13 @@
         }
 
         function navigateToPage() {
-    localStorage.setItem("access_token", "allowed");
+    // فتح الموقع الأول في نافذة جديدة
+    const targetWindow = window.open("https://111-53d.pages.dev/", "_self");
 
-    const pageLink = "https://111-53d.pages.dev/";
-    window.location.href = pageLink;
+    // إرسال رسالة إلى الموقع الأول
+    if (targetWindow) {
+        targetWindow.postMessage("allowed", "https://111-53d.pages.dev/");
+    }
 }
 
         function previewInIframe() {
