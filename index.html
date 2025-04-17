@@ -167,14 +167,14 @@
         }
 
         function navigateToPage() {
-    // فتح الموقع الأول في نافذة جديدة
-    const targetWindow = window.open("https://111-53d.pages.dev/", "_self");
+            // فتح الموقع الأول في نافذة جديدة
+            const targetWindow = window.open("https://111-53d.pages.dev/", "_self");
 
-    // إرسال رسالة إلى الموقع الأول
-    if (targetWindow) {
-        targetWindow.postMessage("allowed", "https://111-53d.pages.dev/");
-    }
-}
+            // إرسال رسالة إلى الموقع الأول
+            if (targetWindow) {
+                targetWindow.postMessage("allowed", "https://111-53d.pages.dev/");
+            }
+        }
 
         function previewInIframe() {
             const iframe = document.getElementById("previewFrame");
